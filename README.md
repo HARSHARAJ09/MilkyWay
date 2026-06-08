@@ -1,2 +1,2 @@
-# 🐄 MilkyWay E-Commers Web Apllication 
+# 🐄 MilkyWay E-Commers Web Application 
 Under Progress 🚧🚨
