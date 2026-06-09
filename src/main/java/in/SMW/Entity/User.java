@@ -53,6 +53,7 @@ public class User {
 
 	private LocalDateTime updatedAt;
 
+	@Builder.Default
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "user_roles",

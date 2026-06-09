@@ -1,40 +1,40 @@
-package in.SMW.Utils;
+//package in.SMW.Utils;
+//
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.CommandLineRunner;
+//import org.springframework.stereotype.Component;
+//
+//import in.SMW.Entity.Role;
+//import in.SMW.Repo.RoleRepo;
+//
+//@Component
+//public class DataInitializer implements CommandLineRunner {
+//
+//	@Autowired
+//	private RoleRepo roleRepo;
+//
+//	@Override
+//	public void run(String... args) throws Exception {
+//
+//		if (roleRepo.findByRoleName("ROLE_ADMIN") == null) {
+//
+//			Role adminRole = Role.builder().roleName("ROLE_ADMIN").build();
+//
+//			roleRepo.save(adminRole);
+//		}
+//
+//		if (roleRepo.findByRoleName("ROLE_CUSTOMER") == null) {
+//
+//			Role customerRole = Role.builder().roleName("ROLE_CUSTOMER").build();
+//
+//			roleRepo.save(customerRole);
+//		}
+//
+//		System.out.println("Milky-Way Roles Initialized Successfully");
+//	}
+//}
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
-import in.SMW.Entity.Role;
-import in.SMW.Repo.RoleRepo;
-
-@Component
-public class DataInitializer implements CommandLineRunner {
-
-	@Autowired
-	private RoleRepo roleRepo;
-
-	@Override
-	public void run(String... args) throws Exception {
-
-		if (roleRepo.findByRoleName("ROLE_ADMIN") == null) {
-
-			Role adminRole = Role.builder().roleName("ROLE_ADMIN").build();
-
-			roleRepo.save(adminRole);
-		}
-
-		if (roleRepo.findByRoleName("ROLE_CUSTOMER") == null) {
-
-			Role customerRole = Role.builder().roleName("ROLE_CUSTOMER").build();
-
-			roleRepo.save(customerRole);
-		}
-
-		System.out.println("Milky-Way Roles Initialized Successfully");
-	}
-}
-
-/*
 package in.SMW.Utils;
 
 import java.math.BigDecimal;
@@ -54,7 +54,7 @@ import in.SMW.Repo.RoleRepo;
 /**
  * DataInitializer is a Spring component that implements CommandLineRunner to initialize
  * the database with default roles, categories, and products when the application starts.
- *
+ */
 @Component
 public class DataInitializer
 		implements CommandLineRunner {
@@ -159,15 +159,15 @@ public class DataInitializer
 				categoryRepo.findByCategoryName(
 						"Ghee");
 		
-		Category Cheese =
+		Category cheese =
 				categoryRepo.findByCategoryName(
 						"Cheese");
 					
-		Category Cream =
+		Category cream =
 				categoryRepo.findByCategoryName(
 						"Cream");
 		
-		Category Yogurt =
+		Category yogurt =
 				categoryRepo.findByCategoryName(
 						"Yogurt");
 
@@ -336,4 +336,3 @@ public class DataInitializer
 	}
 }
 
-*/
