@@ -1,0 +1,59 @@
+package in.SMW.Rest;
+
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+
+import in.SMW.IService.IOrderService;
+import in.SMW.Request.CreateOrderRequest;
+import in.SMW.Security.CustomUserDetails;
+
+@RestController
+@RequestMapping("/orders")
+public class OrderRestController {
+
+	@Autowired
+	private IOrderService orderService;
+
+	@PostMapping
+	public ResponseEntity<?> createOrder(
+			@AuthenticationPrincipal
+			CustomUserDetails userDetails,
+
+			@RequestBody CreateOrderRequest request) {
+
+		return ResponseEntity.ok(
+				orderService.createOrder(
+						userDetails.getUserId(),
+						request));
+	}
+
+	@GetMapping("/{orderId}")
+	public ResponseEntity<?> getOrderById(
+			@PathVariable Integer orderId) {
+
+		return ResponseEntity.ok(
+				orderService.getOrderById(
+						orderId));
+	}
+
+	@GetMapping("/my-orders")
+	public ResponseEntity<?> getUserOrders(
+			@AuthenticationPrincipal
+			CustomUserDetails userDetails) {
+
+		return ResponseEntity.ok(
+				orderService.getUserOrders(
+						userDetails.getUserId()));
+	}
+
+	@GetMapping
+	public ResponseEntity<?> getAllOrders() {
+
+		return ResponseEntity.ok(
+				orderService.getAllOrders());
+	}
+}
