@@ -4,6 +4,7 @@ package in.SMW.Rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import in.SMW.IService.ICategoryService;
@@ -16,7 +17,9 @@ public class CategoryRestController {
 	@Autowired
 	private ICategoryService categoryService;
 
+	
 	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> createCategory(
 			@RequestBody CategoryRequest request) {
 
@@ -25,7 +28,9 @@ public class CategoryRestController {
 				HttpStatus.CREATED);
 	}
 
+	
 	@PutMapping("/{categoryId}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> updateCategory(
 			@PathVariable Integer categoryId,
 			@RequestBody CategoryRequest request) {
@@ -36,7 +41,9 @@ public class CategoryRestController {
 						request));
 	}
 
+	
 	@DeleteMapping("/{categoryId}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> deleteCategory(
 			@PathVariable Integer categoryId) {
 
@@ -46,7 +53,9 @@ public class CategoryRestController {
 				"Category Deleted Successfully");
 	}
 
+	
 	@GetMapping("/{categoryId}")
+	@PreAuthorize("hasAnyRole('ADMIN','CUSTOMER')")
 	public ResponseEntity<?> getCategoryById(
 			@PathVariable Integer categoryId) {
 
@@ -56,6 +65,7 @@ public class CategoryRestController {
 	}
 
 	@GetMapping
+	@PreAuthorize("hasAnyRole('ADMIN','CUSTOMER')")
 	public ResponseEntity<?> getAllCategories() {
 
 		return ResponseEntity.ok(

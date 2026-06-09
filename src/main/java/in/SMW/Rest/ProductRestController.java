@@ -4,6 +4,7 @@ package in.SMW.Rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import in.SMW.IService.IProductService;
@@ -16,7 +17,9 @@ public class ProductRestController {
 	@Autowired
 	private IProductService productService;
 
+	
 	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> createProduct(
 			@RequestBody ProductRequest request) {
 
@@ -25,7 +28,9 @@ public class ProductRestController {
 				HttpStatus.CREATED);
 	}
 
+	
 	@PutMapping("/{productId}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> updateProduct(
 			@PathVariable Integer productId,
 			@RequestBody ProductRequest request) {
@@ -36,7 +41,9 @@ public class ProductRestController {
 						request));
 	}
 
+	
 	@DeleteMapping("/{productId}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> deleteProduct(
 			@PathVariable Integer productId) {
 
@@ -46,7 +53,9 @@ public class ProductRestController {
 				"Product Deleted Successfully");
 	}
 
+	
 	@GetMapping("/{productId}")
+	@PreAuthorize("hasAnyRole('ADMIN','CUSTOMER')")
 	public ResponseEntity<?> getProductById(
 			@PathVariable Integer productId) {
 
@@ -55,14 +64,18 @@ public class ProductRestController {
 						productId));
 	}
 
+	
 	@GetMapping
+	@PreAuthorize("hasAnyRole('ADMIN','CUSTOMER')")
 	public ResponseEntity<?> getAllProducts() {
 
 		return ResponseEntity.ok(
 				productService.getAllProducts());
 	}
 
+	
 	@GetMapping("/category/{categoryId}")
+	@PreAuthorize("hasAnyRole('ADMIN','CUSTOMER')")
 	public ResponseEntity<?> getProductsByCategory(
 			@PathVariable Integer categoryId) {
 
@@ -71,7 +84,9 @@ public class ProductRestController {
 						categoryId));
 	}
 
+	
 	@GetMapping("/search")
+	@PreAuthorize("hasAnyRole('ADMIN','CUSTOMER')")
 	public ResponseEntity<?> searchProducts(
 			@RequestParam String keyword) {
 

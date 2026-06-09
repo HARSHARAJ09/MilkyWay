@@ -4,6 +4,7 @@ package in.SMW.Rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,9 @@ public class OrderRestController {
 	@Autowired
 	private IOrderService orderService;
 
+	
 	@PostMapping
+	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> createOrder(
 			@AuthenticationPrincipal
 			CustomUserDetails userDetails,
@@ -32,6 +35,7 @@ public class OrderRestController {
 	}
 
 	@GetMapping("/{orderId}")
+//	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> getOrderById(
 			@PathVariable Integer orderId) {
 
@@ -40,7 +44,9 @@ public class OrderRestController {
 						orderId));
 	}
 
+	
 	@GetMapping("/my-orders")
+	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> getUserOrders(
 			@AuthenticationPrincipal
 			CustomUserDetails userDetails) {
@@ -51,6 +57,7 @@ public class OrderRestController {
 	}
 
 	@GetMapping
+//	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> getAllOrders() {
 
 		return ResponseEntity.ok(

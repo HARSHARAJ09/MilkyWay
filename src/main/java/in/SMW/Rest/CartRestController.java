@@ -3,6 +3,7 @@ package in.SMW.Rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,12 +13,15 @@ import in.SMW.Security.CustomUserDetails;
 
 @RestController
 @RequestMapping("/cart")
+@PreAuthorize("hasRole('CUSTOMER')")
 public class CartRestController {
 
 	@Autowired
 	private ICartService cartService;
 
+	
 	@PostMapping
+	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> addToCart(
 			@AuthenticationPrincipal
 			CustomUserDetails userDetails,
@@ -30,7 +34,9 @@ public class CartRestController {
 						request));
 	}
 
+	
 	@PutMapping
+	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> updateCartItem(
 			@AuthenticationPrincipal
 			CustomUserDetails userDetails,
@@ -43,7 +49,9 @@ public class CartRestController {
 						request));
 	}
 
+	
 	@DeleteMapping("/{productId}")
+	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> removeCartItem(
 			@AuthenticationPrincipal
 			CustomUserDetails userDetails,
@@ -59,6 +67,7 @@ public class CartRestController {
 	}
 
 	@GetMapping
+	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> getCartItems(
 			@AuthenticationPrincipal
 			CustomUserDetails userDetails) {
@@ -68,7 +77,9 @@ public class CartRestController {
 						userDetails.getUserId()));
 	}
 
+	
 	@DeleteMapping("/clear")
+	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> clearCart(
 			@AuthenticationPrincipal
 			CustomUserDetails userDetails) {
