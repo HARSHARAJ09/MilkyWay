@@ -16,4 +16,6 @@ public interface IUserService {
 	UserResponse getUserById(Integer userId);
 
 	UserResponse updateUser(Integer userId, UserDTO userDTO);
+
+	
 }
