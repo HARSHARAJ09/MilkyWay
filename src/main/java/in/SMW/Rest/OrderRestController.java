@@ -49,7 +49,7 @@ public class OrderRestController {
 	}
 
 	@GetMapping("/{orderId}")
-//	@PreAuthorize("hasRole('CUSTOMER')")
+	@PreAuthorize("hasAnyRole('ADMIN','CUSTOMER')")
 	public ResponseEntity<?> getOrderById(
 			@PathVariable Integer orderId) {
 
@@ -71,7 +71,7 @@ public class OrderRestController {
 	}
 
 	@GetMapping
-//	@PreAuthorize("hasRole('CUSTOMER')")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<?> getAllOrders() {
 
 		return ResponseEntity.ok(

@@ -1,6 +1,5 @@
 package in.SMW.Entity;
 
-
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +22,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Entity
 @Table(name = "users")
@@ -55,10 +53,7 @@ public class User {
 
 	@Builder.Default
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "user_roles",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
@@ -66,9 +61,13 @@ public class User {
 
 	@OneToMany(mappedBy = "user")
 	private List<Orders> orders;
-	
+
 	@Builder.Default
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-	private List<Address> addresses =new ArrayList<>();
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Address> addresses = new ArrayList<>();
+
+	@Builder.Default
+	@OneToMany(mappedBy = "user")
+	private List<Subscription> subscriptions = new ArrayList<>();
 
 }
