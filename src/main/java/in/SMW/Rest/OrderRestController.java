@@ -20,7 +20,7 @@ public class OrderRestController {
 	private IOrderService orderService;
 
 	
-	@PostMapping
+	@PostMapping("/place")
 	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> createOrder(
 			@AuthenticationPrincipal
@@ -28,10 +28,24 @@ public class OrderRestController {
 
 			@RequestBody CreateOrderRequest request) {
 
-		return ResponseEntity.ok(
-				orderService.createOrder(
-						userDetails.getUserId(),
-						request));
+//		return ResponseEntity.ok(
+//				orderService.createOrder(
+//						userDetails.getUserId(),
+//						request));
+//	}
+		try {
+
+			return ResponseEntity.ok(
+					orderService.createOrder(
+							userDetails.getUserId(),
+							request));
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 	@GetMapping("/{orderId}")

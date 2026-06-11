@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.ArrayList;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -21,9 +22,8 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 @Entity
 @Table(name = "users")
@@ -66,5 +66,9 @@ public class User {
 
 	@OneToMany(mappedBy = "user")
 	private List<Orders> orders;
+	
+	@Builder.Default
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+	private List<Address> addresses =new ArrayList<>();
 
 }

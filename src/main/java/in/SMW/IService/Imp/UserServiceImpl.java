@@ -14,6 +14,7 @@ import in.SMW.Entity.User;
 import in.SMW.Exception.UserException;
 import in.SMW.IService.IUserService;
 import in.SMW.Repo.UserRepo;
+import in.SMW.Responses.UserResponse;
 
 @Service
 public class UserServiceImpl
@@ -25,8 +26,24 @@ public class UserServiceImpl
 	@Autowired
 	private ModelMapper modelMapper;
 
+//	@Override
+//	public UserDTO getUserById(
+//			Integer userId) {
+//
+//		User user =
+//				userRepo.findById(userId)
+//						.orElseThrow(() ->
+//								new UserException(
+//										"User Not Found",
+//										HttpStatus.NOT_FOUND));
+//
+//		return modelMapper.map(
+//				user,
+//				UserDTO.class);
+//	}
+	
 	@Override
-	public UserDTO getUserById(
+	public UserResponse getUserById(
 			Integer userId) {
 
 		User user =
@@ -36,9 +53,28 @@ public class UserServiceImpl
 										"User Not Found",
 										HttpStatus.NOT_FOUND));
 
-		return modelMapper.map(
-				user,
-				UserDTO.class);
+		UserResponse response =
+				new UserResponse();
+
+		response.setId(
+				user.getId());
+
+		response.setFirstName(
+				user.getFirstName());
+
+		response.setLastName(
+				user.getLastName());
+
+		response.setEmail(
+				user.getEmail());
+
+		response.setPhone(
+				user.getPhone());
+
+		response.setEnabled(
+				user.getEnabled());
+
+		return response;
 	}
 
 	@Override
@@ -66,4 +102,33 @@ public class UserServiceImpl
 
 		userRepo.delete(user);
 	}
+	
+	@Override
+	public UserResponse updateUser(
+			Integer userId,
+			UserDTO userDTO) {
+
+		User user =
+				userRepo.findById(userId)
+						.orElseThrow(() ->
+								new UserException(
+										"User Not Found",
+										HttpStatus.NOT_FOUND));
+
+		user.setFirstName(
+				userDTO.getFirstName());
+
+		user.setLastName(
+				userDTO.getLastName());
+
+		user.setPhone(
+				userDTO.getPhone());
+
+		userRepo.save(
+				user);
+
+		return getUserById(
+				userId);
+	}
+	
 }

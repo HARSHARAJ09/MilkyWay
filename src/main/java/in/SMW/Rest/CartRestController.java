@@ -20,7 +20,7 @@ public class CartRestController {
 	private ICartService cartService;
 
 	
-	@PostMapping
+	@PostMapping("/add")
 	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> addToCart(
 			@AuthenticationPrincipal
@@ -50,7 +50,7 @@ public class CartRestController {
 	}
 
 	
-	@DeleteMapping("/{productId}")
+	@DeleteMapping("/remove/{productId}")
 	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> removeCartItem(
 			@AuthenticationPrincipal
